@@ -153,21 +153,20 @@ La API devuelve códigos de estado HTTP estándar y respuestas en formato JSON:
 
 # Próximos Pasos
 
-## 1. Desarrollo del Dashboard Administrativo con Filament
+## ~1. Desarrollo del Dashboard Administrativo con Filament~
 
 ### Objetivos
 
-- Crear una interfaz intuitiva para que los administradores gestionen dispositivos, lecturas y alertas.
-- Integrar Filament para facilitar la creación de CRUDs y pantallas de administración.
-- Añadir funcionalidades para visualizar y gestionar alertas registradas en la base de datos.
+- ~Crear una interfaz intuitiva para que los administradores gestionen dispositivos, lecturas y alertas.~
+- ~Integrar Filament para facilitar la creación de CRUDs y pantallas de administración.~
 
-### Tareas
+### ~Tareas~
 
-- Instalar y configurar Filament.
-- Crear el CRUD de alertas en el dashboard.
-- Integrar filtros de búsqueda y ordenación para las alertas.
+- ~Instalar y configurar Filament.~
+- ~Crear el CRUD de alertas en el dashboard.~
+- ~Integrar filtros de búsqueda y ordenación para las alertas.~
 
-## 2. Gestión de Alertas
+## 2. Gestión de Alertas - Pendiente.
 
 ### Objetivos
 
