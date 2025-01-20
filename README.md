@@ -90,7 +90,7 @@ Administra las alertas del sistema a través de estos endpoints:
 1. Clona el repositorio
 
 ```bash
-git clone https://github.com/fer-gc05/API-REST
+git clone https://github.com/fer-gc05/IoT-Firefighting-API.git
 ```
 
 2. Instala las dependencias
