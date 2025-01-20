@@ -62,13 +62,13 @@ Recopila y administra datos de sensores a través de estos endpoints:
 ### Endpoints de Lecturas de Sensores
 
 
-| Método | Endpoint         | Descripción                | Acceso  |
-| ------- | ---------------- | --------------------------- | ------- |
-| POST    | `/readings`      | Crear nueva lectura         | Publico |
-| GET     | `/readings`      | Listar todas las lecturas   | Admin   |
-| GET     | `/readings/{id}` | Obtener lectura específica | Admin   |
-| PUT     | `/readings/{id}` | Actualizar lectura          | Admin   |
-| DELETE  | `/readings/{id}` | Eliminar lectura            | Admin   |
+| Método | Endpoint         | Descripción                | Acceso   |
+| ------- | ---------------- | --------------------------- | -------- |
+| POST    | `/readings`      | Crear nueva lectura         | Público |
+| GET     | `/readings`      | Listar todas las lecturas   | Admin    |
+| GET     | `/readings/{id}` | Obtener lectura específica | Admin    |
+| PUT     | `/readings/{id}` | Actualizar lectura          | Admin    |
+| DELETE  | `/readings/{id}` | Eliminar lectura            | Admin    |
 
 ## Sistema de Alertas
 
@@ -77,13 +77,13 @@ Administra las alertas del sistema a través de estos endpoints:
 ### Endpoints de Alertas
 
 
-| Método | Endpoint       | Descripción               | Acceso  |
-| ------- | -------------- | -------------------------- | ------- |
-| POST    | `/alerts`      | Crear alerta               | Publico |
-| GET     | `/alerts`      | Listar todas las alertas   | Admin   |
-| GET     | `/alerts/{id}` | Obtener alerta específica | Admin   |
-| PUT     | `/alerts/{id}` | Actualizar alerta          | Admin   |
-| DELETE  | `/alerts/{id}` | Eliminar alerta            | Admin   |
+| Método | Endpoint       | Descripción               | Acceso   |
+| ------- | -------------- | -------------------------- | -------- |
+| POST    | `/alerts`      | Crear alerta               | Público |
+| GET     | `/alerts`      | Listar todas las alertas   | Admin    |
+| GET     | `/alerts/{id}` | Obtener alerta específica | Admin    |
+| PUT     | `/alerts/{id}` | Actualizar alerta          | Admin    |
+| DELETE  | `/alerts/{id}` | Eliminar alerta            | Admin    |
 
 ## Instalación
 
