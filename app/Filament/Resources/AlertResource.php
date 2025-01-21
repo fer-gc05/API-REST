@@ -3,30 +3,58 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AlertResource\Pages;
-use App\Filament\Resources\AlertResource\RelationManagers;
 use App\Models\Alert;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
 
 class AlertResource extends Resource
 {
     protected static ?string $model = Alert::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-bell-alert';
 
-    public static function form(Form $form): Form
+    protected static ?string $navigationGroup = 'Alertas';
+
+    protected static ?string $recordTitleAttribute = 'device.name';
+
+    /**
+     * Define los atributos que se pueden buscar globalmente.
+     */
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['device.name', 'type', 'status', 'value', 'max_value'];
+    }
+
+    /**
+     * Configura los detalles que se mostrarán en los resultados de la búsqueda global.
+     */
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'Dispositivo' => $record->device->name ?? 'N/A',
+            'Tipo de Alerta' => $record->type,
+            'Estado' => $record->status,
+            'Valor Actual' => $record->value,
+            'Máximo Permitido' => $record->max_value,
+        ];
+    }
+
+    public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('device_id')
                     ->relationship('device', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('type')
+                Forms\Components\Select::make('type')
+                    ->options([
+                        'Temperatura' => 'Temperatura',
+                        'Humedad' => 'Humedad',
+                        'Nivel de humo' => 'Nivel de humo',
+                        'Nivel de gas' => 'Nivel de gas',
+                    ])
                     ->required(),
                 Forms\Components\TextInput::make('value')
                     ->required()
@@ -37,47 +65,49 @@ class AlertResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(Tables\Table $table): Tables\Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('device.name')
-                    ->numeric()
+                    ->label('Dispositivo')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Tipo'),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Estado')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('value')
+                    ->label('Valor')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('max_value')
+                    ->label('Máximo Permitido')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Actualizado')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

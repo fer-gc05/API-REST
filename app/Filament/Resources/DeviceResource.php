@@ -3,21 +3,43 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DeviceResource\Pages;
-use App\Filament\Resources\DeviceResource\RelationManagers;
 use App\Models\Device;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Database\Eloquent\Model;
 
 class DeviceResource extends Resource
 {
     protected static ?string $model = Device::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-device-tablet';
+
+    protected static ?string $navigationGroup = 'Dispositivos';
+
+    /**
+     * Define los atributos que se pueden buscar globalmente.
+     */
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'location', 'token', 'status'];
+    }
+
+    /**
+     * Configura los detalles que se mostrarán en los resultados de la búsqueda global.
+     */
+    public static function getGlobalSearchResultDetails(Model $record): array
+    {
+        return [
+            'Nombre del dispositivo' => $record->name,
+            'Ubicación' => $record->location,
+            'Token' => $record->token,
+            'Estado' => $record->status,
+            'Fecha de registro' => $record->created_at->format('Y-m-d H:i:s'),
+        ];
+    }
 
     public static function form(Form $form): Form
     {
@@ -25,15 +47,25 @@ class DeviceResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->label('Nombre del dispositivo'),
                 Forms\Components\TextInput::make('location')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->label('Ubicación'),
                 Forms\Components\TextInput::make('token')
+                    ->default(fn() => bin2hex(random_bytes(32)))
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('status')
-                    ->required(),
+                    ->maxLength(255)
+                    ->label('Token'),
+                Forms\Components\Select::make('status')
+                    ->options([
+                        'Activo' => 'Activo',
+                        'Inactivo' => 'Inactivo',
+                    ])
+                    ->required()
+                    ->default('Inactivo')
+                    ->label('Estado'),
             ]);
     }
 
@@ -42,24 +74,32 @@ class DeviceResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->label('Nombre del dispositivo')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('location')
-                    ->searchable(),
+                    ->label('Ubicación')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('token')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('status'),
+                    ->label('Token')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('status')
+                    ->label('Estado')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Fecha de registro')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Última actualización')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
@@ -72,9 +112,7 @@ class DeviceResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array

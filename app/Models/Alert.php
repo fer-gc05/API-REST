@@ -10,6 +10,7 @@ class Alert extends Model
     protected $fillable = [
         'device_id',
         'type',
+        'status',
         'value',
         'max_value'
     ];

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('device_id');
             $table->foreign('device_id')
-            ->references('id')
-            ->on('devices')
-            ->onDelete('cascade');
+                ->references('id')
+                ->on('devices')
+                ->onDelete('cascade');
             $table->float('temperature');
             $table->float('humidity');
             $table->float('smoke_level');

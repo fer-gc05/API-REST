@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('alerts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('device_id');
-            $table->foreign('device_id')->references('id')->on('devices');
+            $table->foreign('device_id')
+                ->references('id')
+                ->on('devices')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->enum('type', ['Temperatura', 'Humedad', 'Nivel de humo', 'Nivel de gas']);
+            $table->enum('status', ['Ejecutada', 'Pendiente'])->default('Pendiente');
             $table->float('value');
             $table->float('max_value');
             $table->timestamps();
