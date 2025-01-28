@@ -17,7 +17,7 @@ class SensorReadingResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-chart-bar';
 
-    protected static ?string $navigationGroup = 'Lecturas de sensores';
+    protected static ?string $navigationGroup = 'Dispositivos';
 
     /**
      * Define los atributos que se pueden buscar globalmente.
