@@ -166,16 +166,6 @@ La API devuelve códigos de estado HTTP estándar y respuestas en formato JSON:
 - ~Crear el CRUD de alertas en el dashboard.~
 - ~Integrar filtros de búsqueda y ordenación para las alertas.~
 
-## 2. Gestión de Alertas - Pendiente.
+## ~2. Integracion de swagger~
 
-### Objetivos
-
-- Implementar un sistema para enviar notificaciones (WhatsApp o Telegram).
-- Crear una interfaz en el dashboard para gestionar el estado de las alertas.
-
-### Tareas
-
-- Integrar la capacidad de enviar notificaciones a través de WhatsApp o Telegram.
-  - Para **WhatsApp**: Usar la API de Twilio o WhatsApp Business API.
-  - Para **Telegram**: Usar el Bot API de Telegram.
-- Actualizar el estado de las alertas en la base de datos después de que se envíen las notificaciones.
+- Despues de arrancar el servicio puedes ingresar a /api/documentation.
